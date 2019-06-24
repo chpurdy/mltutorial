@@ -15,4 +15,18 @@ predict = "G3" # this is the attribute we are going to try to predict
 X = np.array(data.drop([predict], 1))
 Y = np.array(data[predict])
 
-x_train, y_train, x_test, y_test = sklearn.model_selection.train_test_split(X,Y, test_size=0.1)
+x_train, x_test, y_train, y_test = sklearn.model_selection.train_test_split(X,Y, test_size=0.1)
+
+linear = linear_model.LinearRegression()
+
+linear.fit(x_train, y_train)
+acc = linear.score(x_test, y_test)
+print(acc)
+
+print("Co: ", linear.coef_)
+print("Intercept: ", linear.intercept_)
+
+predictions = linear.predict(x_test)
+
+for x in range(len(predictions)):
+    print(predictions[x],x_test[x], y_test[x])
